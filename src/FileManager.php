@@ -85,13 +85,14 @@ class FileManager
      *
      * @param $disk
      * @param $path
+     * @param $query
      *
      * @return array
      */
-    public function content($disk, $path)
+    public function content($disk, $path, $query)
     {
         // get content for the selected directory
-        $content = $this->getContent($disk, $path);
+        $content = $this->getContent($disk, $path, $query);
 
         return [
             'result'      => [

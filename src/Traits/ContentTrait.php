@@ -14,12 +14,16 @@ trait ContentTrait
      *
      * @param       $disk
      * @param  null $path
+     * @param  null $query
      *
      * @return array
      */
-    public function getContent($disk, $path = null)
+    public function getContent($disk, $path = null, $query = null)
     {
         $content = Storage::disk($disk)->listContents($path);
+        if ($query) {
+            $content = $this->filterByQuery($query, $content);
+        }
 
         // get a list of directories
         $directories = $this->filterDir($disk, $content);
@@ -222,5 +226,20 @@ trait ContentTrait
         }
 
         return $withAccess;
+    }
+
+    /**
+     * Search query filter
+     *
+     * @param $query
+     * @param $content
+     *
+     * @return array
+     */
+    protected function filterByQuery($query, $content)
+    {
+        return Arr::where($content, function ($item) use ($query) {
+            return strpos($item['basename'], $query) !== false;
+        });
     }
 }
