@@ -66,7 +66,8 @@ class FileManagerController extends Controller
         return response()->json(
             $this->fm->content(
                 $request->input('disk'),
-                $request->input('path')
+                $request->input('path'),
+                $request->input('query'),
             )
         );
     }
