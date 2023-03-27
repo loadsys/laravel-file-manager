@@ -239,7 +239,7 @@ trait ContentTrait
     protected function filterByQuery($query, $content)
     {
         return Arr::where($content, function ($item) use ($query) {
-            return strpos($item['basename'], $query) !== false;
+            return stripos($item['basename'], $query) !== false;
         });
     }
 }
